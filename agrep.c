@@ -2921,19 +2921,23 @@ int agrep_init(argc, argv, initialfd, pattern_len, pattern_buffer)
 
 	if (argc <= 0) { /* check Pattern against stdin. [chg] TG */
 
-/*		execfd = 0;	*/
+	    //todo : read from stdin here
+        // BL 2/08/2022 : seems like reversing this commented line and commenting next block
+        // (TG modifications) will be enough ?
 
-		/* [chg] TG 02.03.97 */
+        execfd = 0;
 
-		fprintf(stderr,"%s: no target files found.\n",Progname);
-		if (!EXITONERROR) {
-			errno = AGREP_ERROR;
-			/* return agrep_usage(); */
-			return 0; 	/* 0 = nothing found */
-			}
-		else exit(2);
-		}
+//		/* [chg] TG 02.03.97 */
+//
+//		fprintf(stderr,"%s: no target files found.\n",Progname);
+//		if (!EXITONERROR) {
+//			errno = AGREP_ERROR;
+//			/* return agrep_usage(); */
+//			return 0; 	/* 0 = nothing found */
+//			}
+//		else exit(2);
 
+	}
 	else {	/* filenames were specified as a part of the command line */
 		if (!(Textfiles = (CHAR **)malloc(argc * sizeof(CHAR *) ))) {
 			fprintf(stderr, "%s: malloc failure in %s:%d\n", Progname, __FILE__, __LINE__);
@@ -3328,6 +3332,8 @@ void *output;
  *
  * - bgopal on 15/Nov/93.
  */
+
+//todo: make sure that fd can be stdin
 
 int exec(fd, file_list)
 
